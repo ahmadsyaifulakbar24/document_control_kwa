@@ -15,11 +15,11 @@ class CreateFolderController extends Controller
     public function __invoke(Request $request)
     {
         $this->validate($request, [
-            'folder_name' => ['required', 'string']
+            'folder_path' => ['required', 'string']
         ]);
 
-        $folder_name = $request->folder_name;
-        $path = 'directory/'.$folder_name.'/';
+        $folder_path = $request->folder_path;
+        $path = 'directory/'.$folder_path.'/';
         if(!is_dir($path)) {
             mkdir($path , 0777, true);
             return response()->json([

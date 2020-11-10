@@ -16,11 +16,11 @@ class UploadFileController extends Controller
     {
         $this->validate($request, [
             'file' => ['required', 'file'],
-            'path' => ['required','string']
+            'folder_path' => ['required','string']
         ]);
         if($request->hasFile('file')) {
             $file = $request->file('file');
-            $path = 'directory/'.$request->path.'/';
+            $path = 'directory/'.$request->folder_path.'/';
             if(is_dir($path)) {
                 $file_name = $this->uploadFile($path, $file);
                 if($file_name) {
@@ -43,17 +43,17 @@ class UploadFileController extends Controller
     public function uploadFile($path, $requestFile)
     {
         $couter = 0;
+        $name_of_upload = $requestFile->getClientOriginalName();
+        $original_name = pathinfo($name_of_upload, PATHINFO_FILENAME);
         $ext = $requestFile->getClientOriginalExtension();
-        $original_name = $requestFile->getClientOriginalName();
         
         if($requestFile->isValid()) {
-            $new_name = $original_name;
-            while(file_exists($path.$new_name)) {
+            while(file_exists($path.$name_of_upload)) {
                 $couter++;
-                $new_name = $original_name." (".$couter.").".$ext;
+                $name_of_upload = $original_name." (".$couter.").".$ext;
             }
-            $requestFile->move($path, $new_name);
-            return $new_name;
+            $requestFile->move($path, $name_of_upload);
+            return $name_of_upload;
         }
     }
 }
