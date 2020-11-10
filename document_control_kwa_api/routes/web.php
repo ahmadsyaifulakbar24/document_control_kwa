@@ -32,4 +32,5 @@ $router->group(['namespace' => 'Directory', 'prefix' => 'storage'], function() u
     $router->post('/create_folder', ['as' => 'create_folder', 'uses' => 'CreateFolderController']);
     $router->post('/show_folder', ['as' => 'show_folder', 'uses' => 'ShowFolderController']);
     $router->post('/delete_folder', ['as' => 'delete_folder', 'uses' => 'DeleteFolderController']);
+    $router->post('/upload_file', ['as' => 'upload_file', 'uses' => 'UploadFileController']);
 });
