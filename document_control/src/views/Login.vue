@@ -1,0 +1,45 @@
+<template>
+	<div class="auth">
+		<div class="card rounded">
+			<div class="card-head text-center px-4 pt-4">
+				<!-- <img src="{{asset('assets/images/eoffice.png')}}" width="120"> -->
+				<h2 class="pt-4">Inventory KWA</h2>
+				<p class="text-secondary">PT. Karl Wig Abadi</p>
+			</div>
+			<div class="card-body">
+				<form id="form">
+					<div class="alert alert-danger none" role="alert">
+						<i class="mdi mdi-close-circle"></i>Username atau
+						Password salah.
+					</div>
+					<div class="form-group">
+						<label for="username">Username</label>
+						<input type="text" id="username" class="form-control" autofocus="autofocus" />
+					</div>
+					<div class="form-group position-relative">
+						<label for="password">Password</label>
+						<input type="password" id="password" class="form-control pr-5" maxlength="32" autocomplete="on" />
+						<i class="password mdi mdi-eye-off mdi-18px" data-id="password" ></i>
+					</div>
+					<div class="form-group mt-5">
+						<button class="btn btn-primary btn-block mb-4" id="submit" >
+							<span id="text">Login</span>
+							<div class="loader loader-sm none" id="load">
+								<svg class="circular" viewBox="25 25 50 50">
+									<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10" />
+								</svg>
+							</div>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style>
+</style>
