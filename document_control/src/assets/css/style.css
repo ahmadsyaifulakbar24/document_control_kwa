@@ -72,11 +72,11 @@ a:hover {
 
 .main {
   margin-left: 230px;
-  padding: 25px 15px 25px 15px;
+  padding: 70px 15px 25px 15px;
 }
 
 .navbar {
-  position: fixed;
+  position: fixed !important;
   z-index: 4!important;
   width: 100%;
 }

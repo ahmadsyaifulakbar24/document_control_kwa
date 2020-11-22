@@ -8,13 +8,14 @@
                 </a>
             </div>
             <div class="dropdown ml-auto">
+                {{ user.name }}
                 <a id="dropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="#" class="avatar rounded-circle" width="25">
+                    <img :src="user.profile" class="avatar rounded-circle" width="25">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right rounded" aria-labelledby="dropdownMenu">
                     <div class="text-center my-3 px-3 text-break">
-                        <img src="#" class="avatar rounded-circle" width="75">
-                        <h6 class="name text-truncate pt-3 mb-0"></h6>
+                        <img :src="user.profile" class="avatar rounded-circle" width="75">
+                        <h6 class="name text-truncate pt-3 mb-0">{{ user.name }}</h6>
                         <!-- <small class="level text-secondary"></small> -->
                     </div>
                     <div class="dropdown-divider"></div>
@@ -24,7 +25,7 @@
                     <a class="dropdown-item {{Request::is('ubah-password')?'active':''}}" href="{{url('ubah-password')}}">
                         <i class="mdi mdi-18px mdi-lock-outline"></i><span>Ubah Password</span>
                     </a> -->
-                    <a class="dropdown-item" id="logout" role="button">
+                    <a class="dropdown-item" @click="logout" id="logout" role="button">
                         <i class="mdi mdi-18px mdi-login-variant"></i><span>Logout</span>
                     </a>
                 </div>
@@ -39,11 +40,25 @@
         </div>
         <div class="overlay"></div>
     </div>
+    
 </template>
 
 <script>
+import { mapGetters } from "vuex"
 export default {
-    name: 'Navigation'
+    name: 'Navigation',
+    computed: {
+        ...mapGetters({
+            user: 'auth/user'
+        })
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('auth/logout').then(() => {
+                this.$router.push('/')
+            })
+        }
+    }
 }
 </script>
 

@@ -7,19 +7,21 @@
 				<p class="text-secondary">PT. Karl Wig Abadi</p>
 			</div>
 			<div class="card-body">
-				<form id="form">
+				<form id="form" @submit.prevent="userLogin">
 					<div class="alert alert-danger none" role="alert">
 						<i class="mdi mdi-close-circle"></i>Username atau
 						Password salah.
 					</div>
 					<div class="form-group">
 						<label for="username">Username</label>
-						<input type="text" id="username" class="form-control" autofocus="autofocus" />
+						<input type="text" v-model="form.username" ref="username" id="username" class="form-control" autofocus="autofocus" />
+						<div v-if="errors.username" class="text-danger">{{ errors.username[0] }}</div>
 					</div>
 					<div class="form-group position-relative">
 						<label for="password">Password</label>
-						<input type="password" id="password" class="form-control pr-5" maxlength="32" autocomplete="on" />
+						<input type="password" v-model="form.password" ref="password" id="password" class="form-control pr-5" maxlength="32" autocomplete="on" />
 						<i class="password mdi mdi-eye-off mdi-18px" data-id="password" ></i>
+						<div v-if="errors.password" class="text-danger">{{ errors.password[0] }}</div>
 					</div>
 					<div class="form-group mt-5">
 						<button class="btn btn-primary btn-block mb-4" id="submit" >
@@ -38,7 +40,26 @@
 </template>
 
 <script>
-export default {};
+export default {
+	data() {
+		return {
+			form: {
+				username: '',
+				password: ''
+			},
+			errors: []
+		}
+	},
+	methods: {
+		userLogin() {
+			this.$store.dispatch('auth/login', this.form).then(() => {
+				this.$router.push({ name: 'Dashboard' })
+			}).catch((error) => {
+				this.errors = error.response.data
+			})
+		}
+	}
+};
 </script>
 
 <style>

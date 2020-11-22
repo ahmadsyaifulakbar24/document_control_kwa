@@ -113,8 +113,7 @@ export default {
             let folderName = this.formCreateFolder.folderName
             let path = this.formCreateFolder.path
             let folder_path = path.concat('/',folderName)
-            await axios.post("storage/create_folder", { folder_path: folder_path }).then((response) => {
-                console.log(response)
+            await axios.post("storage/create_folder", { folder_path: folder_path }).then(() => {
                 document.getElementById("closeModalBtn").click()
                 this.getFolder(path)
                 this.formCreateFolder.folderName = ""
@@ -128,8 +127,7 @@ export default {
             if(is_dir == true) {
                 axios.post('storage/delete_folder', {
                     folder_path: folder_path
-                }).then((response) => {
-                    console.log(response);
+                }).then(() => {
                     this.getFolder(this.folder_path)
                 }).catch((error) => {
                     let { response } = error
@@ -138,8 +136,7 @@ export default {
             } else {
                 axios.post('storage/delete_file', {
                     file_path: folder_path
-                }).then((response) => {
-                    console.log(response)
+                }).then(() => {
                     this.getFolder(this.folder_path)
                 }).catch((error) => {
                     let { response } = error
