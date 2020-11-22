@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class GetUserController extends Controller
 {
@@ -12,15 +14,16 @@ class GetUserController extends Controller
         // $this->middleware('auth');
     }
 
-    public function __invoke($user_id)
+    public function __invoke(Request $request, $user_id = NULL)
     {
-        $user = User::find($user_id);
+        if(!empty($user_id)) {
+            $get_user_id = $user_id;
+        } else {
+            $get_user_id = $request->user()->id;
+        }
+        $user = User::find($get_user_id);
         if($user) {
-            return response()->json([
-                'success' => true,
-                'message' => 'user found',
-                'data' => $user
-            ], 200);
+            return new UserResource($user);
         } else {
             return response()->json([
                 'success' => false,

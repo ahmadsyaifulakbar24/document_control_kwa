@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -19,12 +20,8 @@ class LoginController extends Controller
         if($token) {
             $user = User::where('username', $request->user()->username)->first();
             return response()->json([
-                'success' => true,
-                'message' => 'login success',
-                'data' => [
-                    'user' => $user,
-                    'api_token' => $token
-                ]
+                'data' => new UserResource($user),
+                'api_token' => $token
             ], 200);
         } else {
             return response()->json([

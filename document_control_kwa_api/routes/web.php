@@ -25,14 +25,14 @@ $router->group(['namespace' => 'Auth', 'prefix' => 'auth'], function() use ($rou
 });
 
 $router->group(['namespace' => 'User', 'prefix' => 'user'], function() use ($router) {
-    $router->get('/get_user/{user_id}', ['as' => 'get_user', 'uses' => 'GetUserController']);
+    $router->get('/get_user[/{user_id}]', ['as' => 'get_user', 'uses' => 'GetUserController']);
 });
 
 $router->group(['namespace' => 'Directory', 'prefix' => 'storage'], function() use ($router) {
     $router->post('/create_folder', ['as' => 'create_folder', 'uses' => 'CreateFolderController']);
     $router->post('/show_folder', ['as' => 'show_folder', 'uses' => 'ShowFolderController']);
     $router->post('/delete_folder', ['as' => 'delete_folder', 'uses' => 'DeleteFolderController']);
-    $router->post('/upload_file', ['as' => 'upload_file', 'uses' => 'UploadFileController']);
     $router->post('/delete_file', ['as' => 'delete_file', 'uses' => 'DeleteFileController']);
+    $router->post('/upload_file', ['as' => 'upload_file', 'uses' => 'UploadFileController']);
     $router->post('/get_file', ['as' => 'get_file', 'uses' => 'GetFileController']);
 });

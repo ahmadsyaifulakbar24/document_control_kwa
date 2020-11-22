@@ -16,11 +16,15 @@ class UploadFileController extends Controller
     {
         $this->validate($request, [
             'file' => ['required', 'file'],
-            'folder_path' => ['required','string']
+            'folder_path' => ['nullable','string']
         ]);
         if($request->hasFile('file')) {
             $file = $request->file('file');
-            $path = 'directory/'.$request->folder_path.'/';
+            if(isset($request->folder_path)) {
+                $path = 'directory/'.$request->folder_path.'/';
+            } else {
+                $path = 'directory/';
+            }
             if(is_dir($path)) {
                 $file_name = $this->uploadFile($path, $file);
                 if($file_name) {

@@ -15,6 +15,7 @@ class UsersTableSeeder extends Seeder
             'username' => 'syaiful',
             'email' => 'ipulbelcram@gmail.com',
             'password' => Hash::make('12345678'),
+            'profile' => 'photo.png',
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
