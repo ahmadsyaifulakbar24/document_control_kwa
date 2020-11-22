@@ -2,13 +2,12 @@
     <div>
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom">
             <div class="form-inline">
-                <i class="mdi mdi-menu mdi-24px d-block d-lg-none pointer text-dark mr-2" id="menu"></i>
+                <i class="mdi mdi-menu mdi-24px d-block d-lg-none pointer text-dark mr-2" @click="menu" id="menu"></i>
                 <a class="navbar-brand" href="#">
                     Document Control
                 </a>
             </div>
             <div class="dropdown ml-auto">
-                {{ user.name }}
                 <a id="dropdownMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img :src="user.profile" class="avatar rounded-circle" width="25">
                 </a>
@@ -38,12 +37,13 @@
                 <i class="mdi mdi-apps mdi-18px"></i><span>Dashboard</span>
             </router-link>
         </div>
-        <div class="overlay"></div>
+        <div class="overlay" @click="overlay"></div>
     </div>
     
 </template>
 
 <script>
+import $ from "jquery";
 import { mapGetters } from "vuex"
 export default {
     name: 'Navigation',
@@ -57,7 +57,27 @@ export default {
             this.$store.dispatch('auth/logout').then(() => {
                 this.$router.push('/')
             })
-        }
+        },
+
+        menu() {
+            if(!$('.sidebar').hasClass('show')) {
+                $('.sidebar').addClass('show')
+                $('.sidebar').css('left','0px')
+                $('.overlay').show()
+            } else {
+                $('.sidebar').removeClass('show')
+                $('.sidebar').css('left','-230px')
+                $('.overlay').hide()
+            }
+        },
+
+        overlay() {
+            $('.sidebar').removeClass('show')
+            $('.sidebar').css('left','-230px')
+            $(this).hide()
+        },
+
+        
     }
 }
 </script>

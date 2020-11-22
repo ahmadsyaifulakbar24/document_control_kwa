@@ -1,5 +1,11 @@
 <template>
     <div class="container">
+        <div class="alert alert-success alert-dismissible fade show" v-if="successAlert" role="alert">
+            <strong>{{ successAlert }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         <div class="large-12 medium-12 small-12 cell">
             <label>File
                 <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
@@ -21,14 +27,10 @@ export default {
 		return {
             folder_path: "none",
             file: "",
-            errors: []
+            errors: [],
+            successAlert: ''
 		};
 	},
-
-	mounted() {
-		this.submitFile();
-	},
-
 	methods: {
 		handleFileUpload() {
              this.file = this.$refs.file.files[0];
@@ -44,7 +46,7 @@ export default {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((response) => {
-                console.log(response.data)
+                this.successAlert = response.data.message
             }).catch((error) => {
                 let { response } = error
                 this.errors = response.data

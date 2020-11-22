@@ -20,7 +20,7 @@
 					<div class="form-group position-relative">
 						<label for="password">Password</label>
 						<input type="password" v-model="form.password" ref="password" id="password" class="form-control pr-5" maxlength="32" autocomplete="on" />
-						<i class="password mdi mdi-eye-off mdi-18px" data-id="password" ></i>
+						<i class="password mdi mdi-eye-off mdi-18px" data-id="password" @click="passwordClick"></i>
 						<div v-if="errors.password" class="text-danger">{{ errors.password[0] }}</div>
 					</div>
 					<div class="form-group mt-5">
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import $ from "jquery";
 export default {
 	data() {
 		return {
@@ -57,7 +58,31 @@ export default {
 			}).catch((error) => {
 				this.errors = error.response.data
 			})
-		}
+		},
+
+		passwordClick() {
+			if($('.password').hasClass('mdi-eye')){
+				$('.password').removeClass('mdi-eye')
+                $('.password').addClass('mdi-eye-off')
+                if($('.password').data('id') == 'password'){
+                    $('#password').attr('type','password')
+                } else if($('.password').data('id') == 'npassword'){
+                    $('#npassword').attr('type','password')
+                } else {
+                    $('#cpassword').attr('type','password')
+                }
+			} else {
+				$('.password').addClass('mdi-eye')
+				$('.password').removeClass('mdi-eye-off')
+				if($(".password").data('id') == 'password'){
+                    $('#password').attr('type','text')
+                } else if($(this).data('id') == 'npassword'){
+                    $('#npassword').attr('type','text')
+                } else {
+                    $('#cpassword').attr('type','text')
+                }
+			}
+        }
 	}
 };
 </script>
