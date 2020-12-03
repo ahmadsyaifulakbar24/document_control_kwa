@@ -21,7 +21,7 @@ class User extends Model implements JWTSubject, AuthenticatableContract, Authori
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'username', 'password', 'profile'
+        'name', 'username', 'user_level_id', 'password', 'profile'
     ];
 
     /**
