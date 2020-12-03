@@ -18,7 +18,7 @@ class CreateSubProjectsTable extends Migration
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
             $table->string('keterangan');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

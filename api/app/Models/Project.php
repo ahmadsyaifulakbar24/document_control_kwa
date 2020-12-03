@@ -12,5 +12,8 @@ class Project extends Model
         'name',
         'keterangan'
     ];
-    
+ 
+    public function sub_project() {
+        return $this->hasMany('App\Models\SubProject', 'project_id');
+    }
 }
