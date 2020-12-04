@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\DocumentFlow;
+namespace App\Http\Controllers\DocumentFlow\SubProject;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
