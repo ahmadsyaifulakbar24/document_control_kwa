@@ -15,7 +15,7 @@ class CreateDocumentPpjabTable extends Migration
     {
         Schema::create('document_ppjab', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ppjab_id')->constrained('ppjab')->onUpdate('cascade')->onUpdate('cascade');
+            $table->foreignId('ppjab_id')->constrained('ppjab')->onUpdate('cascade');
             $table->foreignId('group_id')->constrained('params')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
             $table->text('keterangan');
