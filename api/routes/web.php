@@ -33,13 +33,21 @@ $router->group(['middleware' => 'auth'], function() use ($router) {
         });
     });
 
-    $router->group(['namespace' => 'Kontrak', 'prefix' => 'kontrak'], function() use ($router) {
-        $router->group(['namespace' => 'Ppjab', 'prefix' => 'ppjab'], function() use ($router) { 
+    $router->group(['namespace' => 'Ppjab', 'prefix' => 'ppjab'], function() use ($router) { 
+        $router->group(['namespace' => 'Ppjab'], function() use ($router) {
             $router->post('create', ['as' => 'create_ppjab', 'uses' => 'CreatePpjabController']);
             $router->get('get', ['as' => 'get_ppjab', 'uses' => 'GetPpjabController@get_all']);
             $router->get('get/{ppjab_id}', ['as' => 'get_ppjab_by_id', 'uses' => 'GetPpjabController@get_by_id']);
             $router->patch('update/{ppjab_id}', ['as' => 'update_ppjab', 'uses' => 'UpdatePpjabController']);
             $router->delete('delete/{ppjab_id}', ['as' => 'delete_ppjab', 'uses' => 'DeletePpjabController']);
-        });        
+         });
+
+        $router->group(['namespace' => 'DocumentPpjab', 'prefix' => 'document_ppjab'], function() use ($router) {
+            $router->post('create', ['as' => 'create_document_ppjab', 'uses' => 'CreateDocumentPpjabController']);
+            $router->get('get/{document_ppjab_id}', ['as' => 'get_document_ppjab_by_id', 'uses' => 'GetDocumentPpjabController@get_by_id']);
+            $router->get('list_group', ['as' => 'get_document_ppjab_list_group', 'uses' => 'GetDocumentPpjabController@list_group']);
+            $router->get('get_by_group/{ppjab_id}/{group_id}', ['as' => 'get_document_ppjab_by_group', 'uses' => 'GetDocumentPpjabController@get_by_ppjab_group']);
+            $router->delete('delete/{document_ppjab_id}', ['as' => 'delete_document_ppjab', 'uses' => 'DeleteDocumentPpjabController']);
+        });
     });
 });

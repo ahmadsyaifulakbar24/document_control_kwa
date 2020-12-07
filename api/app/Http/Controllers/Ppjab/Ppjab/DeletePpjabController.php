@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Kontrak\Ppjab;
+namespace App\Http\Controllers\Ppjab\Ppjab;
 
 use App\Http\Controllers\Controller;
 use App\Models\DocumentPpjab;

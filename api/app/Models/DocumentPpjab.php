@@ -15,4 +15,8 @@ class DocumentPpjab extends Model
         'keterangan',
         'file'
     ];
+
+    public function ppjab() {
+        return $this->belongsTo('App\Models\Ppjab', 'ppjab_id');
+    }
 }

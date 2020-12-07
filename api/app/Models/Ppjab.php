@@ -12,4 +12,8 @@ class Ppjab extends Model
         'name',
         'keterangan'
     ];
+
+    public function document_ppjab() {
+        return $this->hasMany('App\Models\DocumentPpjab', 'ppjab_id');
+    }
 }
