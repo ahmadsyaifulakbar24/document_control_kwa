@@ -10,7 +10,7 @@ class GetProjectController extends Controller
 {
     public function get_all()
     {
-        $project = Project::paginate(10);
+        $project = Project::orderBy('id', 'DESC')->paginate(10);
         return ProjectResource::collection($project);
     }
 

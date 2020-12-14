@@ -24,7 +24,7 @@ class DeleteProjectController extends Controller
             $project->delete();
             return response()->json([
                 'message' => 'delete success'
-            ], 404);
+            ], 200);
         } else {
             return response()->json([
                 'message' => 'data not found'

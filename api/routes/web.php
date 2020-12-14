@@ -14,6 +14,9 @@ $router->group(['namespace' => 'Auth', 'prefix' => 'auth'], function() use ($rou
 });
 
 $router->group(['middleware' => 'auth'], function() use ($router) {
+    $router->group(['namespace' => 'User', 'prefix' => 'user'], function() use ($router) {
+        $router->get('get_user', ['as' => 'get_user', 'uses' => 'GetUserController']);
+    });
     $router->group(['namespace' => 'DocumentFlow', 'prefix' => 'document_flow'], function() use ($router) {
         $router->group(['namespace' => 'Project', 'prefix' => 'project'], function() use ($router) {
             $router->get('get', ['as' => 'get_project_all', 'uses' => 'GetProjectController@get_all']);

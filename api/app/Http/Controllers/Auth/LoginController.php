@@ -27,8 +27,8 @@ class LoginController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'login failed',
-                'data' => ''
-            ], 401);
+            ], 422);
+                
         }
     }
 }
