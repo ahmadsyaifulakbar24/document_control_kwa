@@ -18,12 +18,7 @@
                         <!-- <small class="level text-secondary"></small> -->
                     </div>
                     <div class="dropdown-divider"></div>
-                    <!-- <a class="dropdown-item {{Request::is('profil')?'active':''}}" href="{{url('profil')}}">
-                        <i class="mdi mdi-18px mdi-account-box-outline"></i><span>Profil</span>
-                    </a>
-                    <a class="dropdown-item {{Request::is('ubah-password')?'active':''}}" href="{{url('ubah-password')}}">
-                        <i class="mdi mdi-18px mdi-lock-outline"></i><span>Ubah Password</span>
-                    </a> -->
+                    
                     <a class="dropdown-item" @click="logout" id="logout" role="button">
                         <i class="mdi mdi-18px mdi-login-variant"></i><span>Logout</span>
                     </a>
@@ -35,6 +30,10 @@
             <small class="text-secondary text-uppercase font-weight-bold">Menu</small>
             <router-link to="/dashboard">
                 <i class="mdi mdi-apps mdi-18px"></i><span>Dashboard</span>
+            </router-link>
+
+            <router-link :to="{ name: 'project' }">
+                <i class="mdi mdi-apps mdi-18px"></i><span>Project</span>
             </router-link>
         </div>
         <div class="overlay" @click="overlay"></div>

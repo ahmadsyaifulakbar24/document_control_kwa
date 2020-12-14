@@ -53,7 +53,7 @@ export default {
     methods: {
 		userLogin() {
 			this.$store.dispatch('auth/login', this.form).then(() => {
-				this.$router.push({ name: 'Dashboard' })
+				this.$router.push({ name: 'dashboard' })
 			}).catch((error) => {
 				this.errors = error.response.data
 			})

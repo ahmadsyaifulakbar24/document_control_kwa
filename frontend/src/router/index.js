@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
+import ListProject from '../views/project/ListProject'
+import CreateProject from '../views/project/CreateProject'
+import EditProject from '../views/project/EditProject'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -9,7 +12,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Login',
+    name: 'login',
     component: Login,
     meta: {
       guest: true,
@@ -17,10 +20,35 @@ const routes = [
   },
   {
     path: '/dashboard',
-    name: 'Dashboard',
+    name: 'dashboard',
     component: Dashboard,
     meta: {
       auth: true,
+    }
+  },
+
+  {
+    path: '/project',
+    name: 'project',
+    component: ListProject,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/project/create',
+    name: 'project.create',
+    component: CreateProject,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/project/:projectID/edit',
+    name: 'project.edit',
+    component: EditProject,
+    meta: {
+      auth: true
     }
   }
 ]
