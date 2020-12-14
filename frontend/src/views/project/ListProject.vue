@@ -16,7 +16,11 @@
 			</thead>
 			<tbody>
 				<tr v-for="project in projects.data" :key="project.id">
-					<td class="text-truncate">{{ project.name }}</td>
+					<td class="text-truncate">
+                        <router-link :to ="{ name:'subProject.listSubProject', params: { projectID: project.id } }">
+                            {{ project.name }}
+                        </router-link>
+                    </td>
 					<td class="text-truncate">{{ project.keterangan }}</td>
 					<td class="text-truncate">{{ project.created_at }}</td>
                     <td class="text-truncate">
