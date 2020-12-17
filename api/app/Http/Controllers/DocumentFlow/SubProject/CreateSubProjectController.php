@@ -12,14 +12,13 @@ class CreateSubProjectController extends Controller
     {
         $this->validate($request, [
             'project_id' => ['required', 'exists:projects,id'],
-            'sub_project' => ['required', 'array'],
-            'sub_project.*.name' => ['required', 'string'],
-            'sub_project.*.keterangan' => ['required', 'string']
+            'name' => ['required', 'string'],
+            'keterangan' => ['required', 'string']
         ]);
 
         $project = Project::find($request->project_id);
-        $sub_project_input = $request->sub_project;
-        $project->sub_project()->createMany($sub_project_input);
+        $sub_project_input = $request->all();
+        $project->sub_project()->create($sub_project_input);
         return response()->json([
             'message' => 'success create sub project'
         ], 200);

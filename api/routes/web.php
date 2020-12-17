@@ -32,7 +32,7 @@ $router->group(['middleware' => 'auth'], function() use ($router) {
             $router->post('create', ['as' => 'create_sub_project', 'uses' => 'CreateSubProjectController']);
             $router->delete('delete/{sub_project_id}', ['as' => 'delete_sub_project', 'uses' => 'DeleteSubProjectController']);
             $router->patch('update/{sub_project_id}', ['as' => 'update_sub_project', 'uses' => 'UpdateSubProjectController']);
-            $router->post('upload_file/{sub_project_id}', ['as' => 'upload_file_sub_project', 'uses' => 'UpdateFileSubProjectController']);
+            $router->post('upload_file/{sub_project_id}', ['as' => 'upload_file_sub_project', 'uses' => 'UploadFileSubProjectController']);
         });
     });
 
