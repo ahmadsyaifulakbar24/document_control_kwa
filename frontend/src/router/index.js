@@ -8,6 +8,13 @@ import EditProject from '../views/project/EditProject'
 import ListSubProject from '../views/project/sub_project/ListSubProject'
 import CreateSubProject from '../views/project/sub_project/CreateSubProject'
 import EditSubProject from '../views/project/sub_project/EditSubProject'
+import UploadFileSubProject from '../views/project/sub_project/UploadFile'
+import Ppjab from '../views/ppjab/ppjab/ListPpjab'
+import CreatePpjab from '../views/ppjab/ppjab/CreatePpjab'
+import EditPpjab from '../views/ppjab/ppjab/EditPpjab'
+import FolderDocument from '../views/ppjab/document/FolderDocument'
+import ListDocumentPpajb from '../views/ppjab/document/ListDocument'
+import UploadDocumentPpajb from '../views/ppjab/document/UploadDocument'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -77,7 +84,64 @@ const routes = [
     meta: {
       auth: true
     }
-  }
+  },
+  {
+    path: '/sub_project/:projectID/:subProjectID/upload_file',
+    name: 'subProject.UploadFileSubProject',
+    component: UploadFileSubProject,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/ppjab',
+    name: 'ppjab',
+    component: Ppjab,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/ppjab/create',
+    name: 'ppjab.create',
+    component: CreatePpjab,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/ppjab/:ppjabID/edit',
+    name: 'ppjab.edit',
+    component: EditPpjab,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/ppjab/:ppjabID/folder_document',
+    name: 'ppjab.folderDocument',
+    component: FolderDocument,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/ppjab/:ppjabID/:groupID/document',
+    name: 'ppjab.document',
+    component: ListDocumentPpajb,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/ppjab/:ppjabID/:groupID/upload_document',
+    name: 'ppjab.uploadDocument',
+    component: UploadDocumentPpajb,
+    meta: {
+      auth: true
+    }
+  },
+
 ]
 
 const router = new VueRouter({

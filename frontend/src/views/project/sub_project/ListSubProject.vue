@@ -20,7 +20,7 @@
                     <th class="text-truncate">{{ subProject.name }}</th>
                     <th class="text-truncate">{{ subProject.keterangan }}</th>
                     <th class="text-truncate">
-                        <template v-if="subProject.file !== ''"> {{ subProject.file }} </template>
+                        <template v-if="subProject.file !== ''"> {{ fileName(subProject.file) }} </template>
                         <template v-else> File belum di upload </template>   
                     </th>
                     <th class="text-truncate">{{ subProject.created_at }}</th>
@@ -29,6 +29,18 @@
                             <div class="text-info">
                                 <router-link :to="{ name: 'subProject.EditSubProject', params: { projectID: project_id, subProjectID: subProject.id } }">
                                     <i class="mdi mdi-pencil"><span>Edit</span></i>
+                                </router-link>
+                            </div>
+                            <div class="text-info">
+                                <router-link :to="{ name: 'subProject.UploadFileSubProject', params: { projectID: project_id, subProjectID: subProject.id } }">
+                                        <i class="mdi mdi-file-upload">
+                                            <template v-if="subProject.file !== ''">
+                                                <span>Update File</span>
+                                            </template>
+                                            <template v-else>
+                                                <span>Upload File</span>
+                                            </template>
+                                        </i>
                                 </router-link>
                             </div>
                             <delete-sub-project :projectID="project_id" :subProjectID="subProject.id" />
@@ -64,6 +76,10 @@ export default {
             }).catch((error) => {
                 console.log(error.response.data)
             })
+        },
+        fileName(fileURL) {
+            let newFileName = fileURL.substring(fileURL.lastIndexOf('/')+1)
+            return newFileName
         }
     }
 }
