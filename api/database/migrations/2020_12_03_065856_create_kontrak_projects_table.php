@@ -17,7 +17,7 @@ class CreateKontrakProjectsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('keterangan');
-            $table->string('amandemen');
+            $table->string('amandemen')->nullable();
             $table->timestamps();
         });
     }

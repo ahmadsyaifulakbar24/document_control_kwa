@@ -53,4 +53,21 @@ $router->group(['middleware' => 'auth'], function() use ($router) {
             $router->delete('delete/{document_ppjab_id}', ['as' => 'delete_document_ppjab', 'uses' => 'DeleteDocumentPpjabController']);
         });
     });
+
+    $router->group(['namespace' => 'Kontrak', 'prefix' => 'kontrak'], function() use ($router) { 
+        $router->group(['namespace' => 'Kontrak'], function() use ($router) { 
+            $router->post('/create', ['as' => 'create_kontrak', 'uses' => 'CreateKontrakController']);
+            $router->post('/update/{kontrak_id}', ['as' => 'update_kontrak', 'uses' => 'UpdateKontrakController']);
+            $router->get('/get', ['as' => 'get_kontrak', 'uses' => 'GetKontrakController@get_all']);
+            $router->get('/get/{kontrak_id}', ['as' => 'get_kontrak_by_id', 'uses' => 'GetKontrakController@get_by_id']);
+            $router->delete('/delete/{kontrak_id}', ['as' => 'delete_kontrak', 'uses' => 'DeleteKontrakController']);
+        });
+
+        $router->group(['namespace' => 'Amandemen', 'prefix' => 'amandemen'], function() use ($router) {
+            $router->get('/get/{kontrak_id}', ['as' => 'get_amandemen', 'uses' => 'GetAmandemenController@get_all']);
+            $router->post('/create', ['as' => 'create_amandemen', 'uses' => 'CreateAmandemenController']);
+            $router->post('/update/{amandemen_id}', ['as' => 'update_amandemen', 'uses' => 'UpdateAmandemenController']);
+            $router->delete('/delete/{amandemen_id}', ['as' => 'delete_amandemen', 'uses' => 'DeleteAmandemenController']);
+        });
+    });
 });

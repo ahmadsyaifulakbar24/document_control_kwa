@@ -14,4 +14,9 @@ class Amandemen extends Model
         'keterangan',
         'file'
     ];
+
+    public function kontrak_project() 
+    {
+        return $this->belongsTo('App\Models\KontrakProject', 'kontrak_poroject_id');
+    }
 }

@@ -13,4 +13,9 @@ class KontrakProject extends Model
         'keterangan',
         'amandemen'
     ];
+
+    public function amandemen()
+    {
+        return $this->hasMany('App\Models\Amandemen', 'kontrak_project_id');
+    }
 }
