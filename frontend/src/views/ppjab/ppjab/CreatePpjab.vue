@@ -32,7 +32,6 @@ export default {
                 })
                 this.$router.push({ name: 'ppjab' })
             }).catch((error) => {
-                console.log(error.response.data)
                 this.errors = error.response.data
             })
         }

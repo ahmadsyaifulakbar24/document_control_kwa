@@ -15,6 +15,12 @@ import EditPpjab from '../views/ppjab/ppjab/EditPpjab'
 import FolderDocument from '../views/ppjab/document/FolderDocument'
 import ListDocumentPpajb from '../views/ppjab/document/ListDocument'
 import UploadDocumentPpajb from '../views/ppjab/document/UploadDocument'
+import ListKontrak from '../views/kontrak/kontrak/ListKontrak'
+import CreateKontrak from '../views/kontrak/kontrak/CreateKontrak'
+import UpdateKontrak from '../views/kontrak/kontrak/UpdateKontrak'
+import ListAmandemen from '../views/kontrak/amandemen/ListAmandemen'
+import CreateAmandemen from '../views/kontrak/amandemen/CreateAmandemen'
+import UpdateAmandemen from '../views/kontrak/amandemen/UpdateAmandemen'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -137,6 +143,54 @@ const routes = [
     path: '/ppjab/:ppjabID/:groupID/upload_document',
     name: 'ppjab.uploadDocument',
     component: UploadDocumentPpajb,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/kontrak',
+    name: 'kontrak',
+    component: ListKontrak,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/kontrak/create',
+    name: 'kontrak.create',
+    component: CreateKontrak,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/kontrak/:kontrakID/update',
+    name: 'kontrak.update',
+    component: UpdateKontrak,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/amandemen/:kontrakID',
+    name: 'amandemen',
+    component: ListAmandemen,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/amandemen/:kontrakID/create',
+    name: 'amandemen.create',
+    component: CreateAmandemen,
+    meta: {
+      auth: true
+    }
+  },
+  {
+    path: '/amandemen/:kontrakID/:amandemenID/update',
+    name: 'amandemen.update',
+    component: UpdateAmandemen,
     meta: {
       auth: true
     }

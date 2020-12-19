@@ -24,6 +24,11 @@
                     <td class="text-truncate">
                         <div class="d-flex">
                             <delete-document :documentID="document.id" />
+                            <div>
+                                <a :href="document.file" :download="document.name">
+                                    <span>Download File</span>
+                                </a>
+                            </div>
                         </div>
                     </td>
                 </tr>

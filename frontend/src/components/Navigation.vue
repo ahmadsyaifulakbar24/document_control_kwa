@@ -39,6 +39,10 @@
             <router-link :to="{ name: 'ppjab' }">
                 <i class="mdi mdi-apps mdi-18px"></i><span>PPJAB</span>
             </router-link>
+
+            <router-link :to="{ name: 'kontrak' }">
+                <i class="mdi mdi-apps mdi-18px"></i><span>Kontrak</span>
+            </router-link>
         </div>
         <div class="overlay" @click="overlay"></div>
     </div>
