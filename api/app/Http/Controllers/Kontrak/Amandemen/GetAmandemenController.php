@@ -21,4 +21,16 @@ class GetAmandemenController extends Controller
             ], 404);
         }
     }
+
+    public function get_by_id($amandemen_id) 
+    {
+        $amandemen = Amandemen::find($amandemen_id);
+        if($amandemen) {
+            return new AmandemenResource($amandemen);
+        } else {
+            return response()->json([
+                'message' => 'data not found'
+            ], 404);
+        }
+    }
 }

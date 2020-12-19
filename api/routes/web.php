@@ -65,6 +65,7 @@ $router->group(['middleware' => 'auth'], function() use ($router) {
 
         $router->group(['namespace' => 'Amandemen', 'prefix' => 'amandemen'], function() use ($router) {
             $router->get('/get/{kontrak_id}', ['as' => 'get_amandemen', 'uses' => 'GetAmandemenController@get_all']);
+            $router->get('/get_by_id/{amandemen_id}', ['as' => 'get_amandemen_by_id', 'uses' => 'GetAmandemenController@get_by_id']);
             $router->post('/create', ['as' => 'create_amandemen', 'uses' => 'CreateAmandemenController']);
             $router->post('/update/{amandemen_id}', ['as' => 'update_amandemen', 'uses' => 'UpdateAmandemenController']);
             $router->delete('/delete/{amandemen_id}', ['as' => 'delete_amandemen', 'uses' => 'DeleteAmandemenController']);
