@@ -88,7 +88,7 @@ class ParamsTableSeeder extends Seeder
 
         Param::create([
             'category_param' => 'group_document_ppjab',
-            'param' => 'Invoice/PKS',
+            'param' => 'PKS',
             'order' => 12,
             'active' => true
         ]);
