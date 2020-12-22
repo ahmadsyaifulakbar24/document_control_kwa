@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 
 import axios from "axios"
-axios.defaults.baseURL = 'http://localhost:8000/'
+axios.defaults.baseURL = 'http://103.112.44.35/document_control_kwa/api/public/'
 
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
