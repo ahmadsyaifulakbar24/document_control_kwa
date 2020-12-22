@@ -36,7 +36,7 @@ export default {
             .then(() => {
                 this.$toasted.show('berhasil buat kontrak', {
                     type: 'success',
-                    duratin: 3000
+                    duration: 3000
                 })
                 this.$router.push({ name: 'kontrak' })
             }).catch((error) => {
