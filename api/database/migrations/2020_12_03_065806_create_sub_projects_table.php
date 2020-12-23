@@ -15,6 +15,7 @@ class CreateSubProjectsTable extends Migration
     {
         Schema::create('sub_projects', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade');
             $table->foreignId('project_id')->constrained('projects')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
             $table->string('keterangan');

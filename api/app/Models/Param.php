@@ -10,6 +10,7 @@ class Param extends Model
 
     protected $fillable = [
         'category_param',
+        'param_id',
         'param',
         'order',
         'active'

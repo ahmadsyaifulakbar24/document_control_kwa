@@ -5,6 +5,7 @@ namespace App\Http\Controllers\DocumentFlow\SubProject;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CreateSubProjectController extends Controller
 {
@@ -12,6 +13,12 @@ class CreateSubProjectController extends Controller
     {
         $this->validate($request, [
             'project_id' => ['required', 'exists:projects,id'],
+            'user_id' => [
+                'required', 
+                Rule::exists('users', 'id')->where(function($query) {
+                    $query->where('user_level_id', [102, 103]);
+                })
+            ],
             'name' => ['required', 'string'],
             'keterangan' => ['required', 'string']
         ]);

@@ -49,5 +49,15 @@ class UsersTableSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'Finance User',
+            'username' => 'finance',
+            'password' => Hash::make('12345678'),
+            'profile' => 'photo.png',
+            'user_level_id' => 103,
+            'created_at' => \Carbon\Carbon::now(),
+            'updated_at' => \Carbon\Carbon::now(),
+        ]);
     }
 }

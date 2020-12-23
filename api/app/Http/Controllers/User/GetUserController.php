@@ -32,4 +32,10 @@ class GetUserController extends Controller
             ], 401);
         }
     }
+
+    public function get_user_for_project()
+    {
+        $user = User::whereIn('user_level_id', [102, 103])->get();
+        return UserResource::collection($user);
+    }
 }
