@@ -22,6 +22,19 @@
             </div>
 
             <div class="form-group row">
+                <label for="user_id" class="col-lg-3">Target</label>
+                <div class="col-lg-5 col-xl-5">
+                    <select v-model="form.user_id" id="user_id" class="form-control">
+                        <option value="" disabled>Pilih Target</option>
+                        <option v-for="userProject in userProjects" :key="userProject.id" :value="userProject.id">
+                            {{ userProject.name }}
+                        </option>
+                    </select>
+                    <div v-if="errors.user_id" class="mt-2 text-danger">{{ errors.user_id[0] }}</div>
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-5 col-xs-5"> 
                     <button type="submit" class="btn btn-primary btn-block">Buat Sub Project</button>
@@ -39,10 +52,15 @@ export default {
             form: {
                 project_id: this.$route.params.projectID,
                 name: '',
-                keterangan: ''
+                keterangan: '',
+                user_id: ''
             },
+            userProjects: [],
             errors: []
         }
+    },
+    mounted() {
+        this.getUserProject()
     },
     methods: {
         createSubProject() {
@@ -54,8 +72,13 @@ export default {
                 })
                 this.$router.push({ name: 'subProject.listSubProject', params: { projectID:this.form.project_id } })
             }).catch((error) => {
-                console.log(error.response.data)
-                this.errors 
+                this.errors = error.response.data
+            })
+        },
+        async getUserProject() {
+            await axios.get('user/get_user_project/')
+            .then((response) => {
+                this.userProjects = response.data.data
             })
         }
     }

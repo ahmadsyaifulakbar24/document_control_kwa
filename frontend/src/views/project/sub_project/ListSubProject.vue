@@ -11,6 +11,7 @@
                     <th class="text-truncate">Name</th>
                     <th class="text-truncate">Keterangan</th>
                     <th class="text-truncate">File</th>
+                    <th class="text-truncate">Target</th>
                     <th class="text-truncate">Createad at</th>
                     <th class="text-truncate">Action</th>
                 </tr>
@@ -23,6 +24,7 @@
                         <template v-if="subProject.file !== ''"> {{ fileName(subProject.file) }} </template>
                         <template v-else> File belum di upload </template>   
                     </th>
+                    <th class="text-truncate">{{ subProject.user.name }}</th>
                     <th class="text-truncate">{{ subProject.created_at }}</th>
                     <th class="text-truncate">
                         <div class="d-flex">

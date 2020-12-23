@@ -22,6 +22,21 @@
             </div>
 
             <div class="form-group row">
+                <label for="user_id" class="col-lg-3">Target</label>
+                <div class="col-lg-5 col-xl-5">
+                    <select v-model="form.user_id" id="user_id" class="form-control">
+                        <option :value="userSelected.id" v-text="userSelected.name"></option>
+                        <template v-for="userProject in userProjects">
+                            <option v-if="userSelected.id !== userProject.id" :key="userProject.id" :value="userProject.id">
+                                {{ userProject.name }}
+                            </option>
+                        </template>
+                    </select>
+                    <div v-if="errors.user_id" class="mt-2 text-danger">{{ errors.user_id[0] }}</div>
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-5 col-xs-5"> 
                     <button type="submit" class="btn btn-primary btn-block">Simpan Sub Project</button>
@@ -39,8 +54,11 @@ export default {
             form: {
                 project_id: this.$route.params.projectID,
                 name: '',
-                keterangan: ''
+                keterangan: '',
+                user_id: ''
             },
+            userSelected:{},
+            userProjects: [],
             subProjectID: this.$route.params.subProjectID,
             projectID: this.$route.params.projectID,
             errors: []
@@ -48,13 +66,16 @@ export default {
     },
     mounted() {
         this.getSubProject()
+        this.getUserProject()
     },
 
     methods: {
         async getSubProject() {
             await axios.get(`document_flow/sub_project/get/${this.subProjectID}`)
             .then((response) => {
-                this.form = response.data.data
+                let data = response.data.data
+                this.form = data
+                this.userSelected = data.user
             })
         },
         async EditSubProject() {
@@ -66,8 +87,13 @@ export default {
                 })
                 this.$router.push({ name: 'subProject.listSubProject', params: {projectID: this.projectID} })
             }).catch((error) => {
-                console.log(error.response.data)
                 this.errors = error.response.data
+            })
+        },
+        async getUserProject() {
+            await axios.get('user/get_user_project/')
+            .then((response) => {
+                this.userProjects = response.data.data
             })
         }
     }
