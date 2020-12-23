@@ -36,6 +36,11 @@
                                 <i class="mdi mdi-pencil"><span>Edit</span></i>
                             </router-link>
                             <delete-kontrak :kontrakID="kontrak.id"/>
+                            <div class="text-info" v-if="kontrak.amandemen">
+                                <a target="_blank" :href="kontrak.amandemen" :download="kontrak.name">
+                                    <i class="mdi mdi-download"><span>Download</span></i>
+                                </a>
+                            </div>
                         </div>
                     </td>
                 </tr>

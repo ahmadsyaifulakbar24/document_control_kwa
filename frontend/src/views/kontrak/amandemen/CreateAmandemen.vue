@@ -42,7 +42,6 @@ export default {
                 })
                 this.$router.push({ name: 'amandemen', params: { kontrakID: this.$route.params.kontrakID }})
             }).catch((error) => {
-                console.log(error.response.data)
                 this.errors = error.response.data
             })
         }

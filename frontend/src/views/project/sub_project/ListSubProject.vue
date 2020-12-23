@@ -43,6 +43,11 @@
                                         </i>
                                 </router-link>
                             </div>
+                            <div class="text-info" v-if="subProject.file">
+                                <a target="_blank" :href="subProject.file" :download="subProject.name">
+                                    <i class="mdi mdi-download"><span>Download</span></i>
+                                </a>
+                            </div>
                             <delete-sub-project :projectID="project_id" :subProjectID="subProject.id" />
                         </div>
                     </th>

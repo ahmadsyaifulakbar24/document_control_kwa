@@ -44,7 +44,10 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            form: {},
+            form: {
+                name: '',
+                keterangan: ''
+            },
             file: [],
             errors: []
         }

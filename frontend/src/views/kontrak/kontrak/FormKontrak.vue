@@ -16,7 +16,7 @@
         </div>
 
         <div class="input-group mb-3 row">
-            <label for="uploadAmandemen" class="col-lg-3">Upload Amandemen</label>
+            <label for="uploadAmandemen" class="col-lg-3">Upload Dokumen Induk</label>
             <div class="col-lg-5 col-xl-5 ml-2">
                 <div class="custom-file" id="uploadAmandemen">
                     <input type="file" class="custom-file-input" id="uploadAmandemen" ref="uploadAmandemen" @change="handleFileUpload">

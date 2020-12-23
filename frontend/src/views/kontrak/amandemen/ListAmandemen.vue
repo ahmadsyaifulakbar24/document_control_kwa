@@ -25,6 +25,11 @@
                                 <i class="mdi mdi-pencil"><span>Edit</span></i>
                             </router-link>
                             <delete-amandemen :amandemenID="amandemen.id" />
+                            <div class="text-info">
+                                <a target="_blank" :href="amandemen.file" :download="amandemen.name">
+                                    <i class="mdi mdi-download"><span>Download</span></i>
+                                </a>
+                            </div>
                         </div>
                     </td>
                 </tr>
