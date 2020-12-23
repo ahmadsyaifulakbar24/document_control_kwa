@@ -13,7 +13,13 @@ class GetDocumentPpjabController extends Controller
 {
     public function list_group()
     {
-        $group = Param::where([['category_param', 'group_document_ppjab'], ['active', 1]])->orderBy('order', 'ASC')->get();
+        $group = Param::where([['category_param', 'group_document_ppjab'], ['active', 1]])->whereNull('param_id')->orderBy('order', 'ASC')->get();
+        return ListGroupResource::collection($group);
+    }
+
+    public function list_sub_group($group_id)
+    {
+        $group = Param::where([['category_param', 'group_document_ppjab'], ['active', 1], ['param_id', $group_id]])->orderBy('order', 'ASC')->get();
         return ListGroupResource::collection($group);
     }
 

@@ -15,6 +15,7 @@ class CreateParamsTable extends Migration
     {
         Schema::create('params', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('param_id')->nullable();
             $table->string('category_param');
             $table->string('param');
             $table->integer('order');

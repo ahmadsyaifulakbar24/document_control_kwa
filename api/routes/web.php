@@ -49,6 +49,7 @@ $router->group(['middleware' => 'auth'], function() use ($router) {
             $router->post('create', ['as' => 'create_document_ppjab', 'uses' => 'CreateDocumentPpjabController']);
             $router->get('get/{document_ppjab_id}', ['as' => 'get_document_ppjab_by_id', 'uses' => 'GetDocumentPpjabController@get_by_id']);
             $router->get('list_group', ['as' => 'get_document_ppjab_list_group', 'uses' => 'GetDocumentPpjabController@list_group']);
+            $router->get('list_sub_group/{group_id}', ['as' => 'get_document_ppjab_list_sub_group', 'uses' => 'GetDocumentPpjabController@list_sub_group']);
             $router->get('get_by_group/{ppjab_id}/{group_id}', ['as' => 'get_document_ppjab_by_group', 'uses' => 'GetDocumentPpjabController@get_by_ppjab_group']);
             $router->delete('delete/{document_ppjab_id}', ['as' => 'delete_document_ppjab', 'uses' => 'DeleteDocumentPpjabController']);
         });

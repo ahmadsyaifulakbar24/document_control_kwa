@@ -92,5 +92,45 @@ class ParamsTableSeeder extends Seeder
             'order' => 12,
             'active' => true
         ]);
+
+        Param::create([
+            'category_param' => 'group_document_ppjab',
+            'param_id' => 9,
+            'param' => 'Evidence',
+            'order' => 1,
+            'active' => true
+        ]);
+
+        Param::create([
+            'category_param' => 'group_document_ppjab',
+            'param_id' => 9,
+            'param' => 'Progres',
+            'order' => 2,
+            'active' => true
+        ]);
+
+        Param::create([
+            'category_param' => 'group_document_ppjab',
+            'param_id' => 10,
+            'param' => 'Valid 4',
+            'order' => 1,
+            'active' => true
+        ]);
+
+        Param::create([
+            'category_param' => 'group_document_ppjab',
+            'param_id' => 10,
+            'param' => 'TESTCOM',
+            'order' => 1,
+            'active' => true
+        ]);
+
+        Param::create([
+            'category_param' => 'group_document_ppjab',
+            'param_id' => 10,
+            'param' => 'BA REKON',
+            'order' => 1,
+            'active' => true
+        ]);
     }
 }

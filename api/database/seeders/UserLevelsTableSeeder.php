@@ -33,5 +33,10 @@ class UserLevelsTableSeeder extends Seeder
             'id' => 102,
             'level' => 'Manager'
         ]);
+
+        UserLevel::create([
+            'id' => 103,
+            'level' => 'Finance'
+        ]);
     }
 }
