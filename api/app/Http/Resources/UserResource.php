@@ -11,8 +11,9 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
             'username' => $this->username,
+            'email' => $this->email,
+            'user_level_id' => $this->user_level_id,
             'profile' => (!empty($this->profile)) ? url('images/profile/'.$this->profile) : '',
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

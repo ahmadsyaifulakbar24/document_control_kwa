@@ -40,9 +40,11 @@
                 <i class="mdi mdi-apps mdi-18px"></i><span>PPJAB</span>
             </router-link>
 
-            <router-link :to="{ name: 'kontrak' }">
-                <i class="mdi mdi-apps mdi-18px"></i><span>Kontrak</span>
-            </router-link>
+            <template v-if="user.user_level_id == 102">
+                <router-link :to="{ name: 'kontrak' }">
+                    <i class="mdi mdi-apps mdi-18px"></i><span>Kontrak</span>
+                </router-link>
+            </template>
         </div>
         <div class="overlay" @click="overlay"></div>
     </div>

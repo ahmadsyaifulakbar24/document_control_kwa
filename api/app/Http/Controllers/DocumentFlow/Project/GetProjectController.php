@@ -5,12 +5,22 @@ namespace App\Http\Controllers\DocumentFlow\Project;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
+use App\Models\SubProject;
+use Illuminate\Http\Request;
 
 class GetProjectController extends Controller
 {
-    public function get_all()
+    public function get_all(Request $request)
     {
-        $project = Project::orderBy('id', 'DESC')->paginate(10);
+        $user_level_id = $request->user()->user_level_id;
+        if($user_level_id == 102 || $user_level_id == 103) {
+            $user_id = $request->user()->id;
+            $project = SubProject::select('a.id', 'a.name', 'a.keterangan', 'a.created_at', 'a.updated_at')->where('user_id', $user_id)
+                                ->leftJoin('projects as a', 'sub_projects.project_id', '=', 'a.id')
+                                ->groupBy('project_id')->get();
+        } else {
+            $project = Project::orderBy('id', 'DESC')->paginate(10);
+        }
         return ProjectResource::collection($project);
     }
 

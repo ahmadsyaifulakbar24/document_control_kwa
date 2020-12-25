@@ -16,7 +16,7 @@ class CreateSubProjectController extends Controller
             'user_id' => [
                 'required', 
                 Rule::exists('users', 'id')->where(function($query) {
-                    $query->where('user_level_id', [102, 103]);
+                    $query->whereIn('user_level_id', [102, 103]);
                 })
             ],
             'name' => ['required', 'string'],

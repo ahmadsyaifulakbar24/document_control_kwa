@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="mb-3">
+        <div v-if="user.user_level_id == 100" class="mb-3">
             <router-link :to="{ name: 'ppjab.create' }">
                 <button class="btn btn-primary"> Tambah PPJAB </button>
             </router-link>
@@ -11,7 +11,7 @@
                     <th class="text-truncate">Nama PPJAB</th>
                     <th class="text-truncate">Keterangan</th>
                     <th class="text-truncate">Tanggal di buat</th>
-                    <th class="text-truncate">Action</th>
+                    <th v-if="user.user_level_id == 100" class="text-truncate">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +23,7 @@
                     </th>
                     <th class="text-truncate">{{ ppjab.keterangan }}</th>
                     <th class="text-truncate">{{ ppjab.created_at }}</th>
-                    <th class="text-truncate">
+                    <th v-if="user.user_level_id == 100" class="text-truncate">
                         <div class="d-flex">
                             <div class="text-info">
                                 <router-link :to="{ name: 'ppjab.edit', params: { ppjabID: ppjab.id } }">
@@ -41,6 +41,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 import DeletePpjab from "./DeletePpjab.vue";
 export default {
     components: {
@@ -50,6 +51,11 @@ export default {
         return {
             ppjabs: []
         }
+    },
+    computed: {
+        ...mapGetters({
+            user: 'auth/user'
+        })
     },
     mounted() {
         this.getPpjab()

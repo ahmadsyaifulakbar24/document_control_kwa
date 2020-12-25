@@ -22,6 +22,12 @@ import ListAmandemen from '../views/kontrak/amandemen/ListAmandemen'
 import CreateAmandemen from '../views/kontrak/amandemen/CreateAmandemen'
 import UpdateAmandemen from '../views/kontrak/amandemen/UpdateAmandemen'
 import store from '../store'
+import admin from './middleware/admin'
+import auth from './middleware/auth'
+// import directure from './middleware/directure'
+// import finance from './middleware/finance'
+import financeAndManager from './middleware/financeAndManager'
+import manager from './middleware/manager'
 
 Vue.use(VueRouter)
 
@@ -39,7 +45,7 @@ const routes = [
     name: 'dashboard',
     component: Dashboard,
     meta: {
-      auth: true,
+      middleware: [auth],
     }
   },
 
@@ -48,7 +54,7 @@ const routes = [
     name: 'project',
     component: ListProject,
     meta: {
-      auth: true
+      middleware: [auth],
     }
   },
   {
@@ -56,7 +62,7 @@ const routes = [
     name: 'project.create',
     component: CreateProject,
     meta: {
-      auth: true
+      middleware: [auth, admin]
     }
   },
   {
@@ -64,7 +70,7 @@ const routes = [
     name: 'project.edit',
     component: EditProject,
     meta: {
-      auth: true
+      middleware: [auth, admin]
     }
   },
   {
@@ -72,7 +78,7 @@ const routes = [
     name: 'subProject.listSubProject',
     component: ListSubProject,
     meta: {
-      auth: true
+      middleware: [auth],
     }
   },
   {
@@ -80,7 +86,7 @@ const routes = [
     name: 'subProject.createSubProject',
     component: CreateSubProject,
     meta: {
-      auth: true
+      middleware: [auth, admin]
     }
   },
   {
@@ -88,7 +94,7 @@ const routes = [
     name: 'subProject.EditSubProject',
     component: EditSubProject,
     meta: {
-      auth: true
+      middleware: [auth, admin]
     }
   },
   {
@@ -96,7 +102,7 @@ const routes = [
     name: 'subProject.UploadFileSubProject',
     component: UploadFileSubProject,
     meta: {
-      auth: true
+      middleware: [auth, financeAndManager]
     }
   },
   {
@@ -104,7 +110,7 @@ const routes = [
     name: 'ppjab',
     component: Ppjab,
     meta: {
-      auth: true
+      middleware: [auth],
     }
   },
   {
@@ -112,7 +118,7 @@ const routes = [
     name: 'ppjab.create',
     component: CreatePpjab,
     meta: {
-      auth: true
+      middleware: [auth, admin]
     }
   },
   {
@@ -120,7 +126,7 @@ const routes = [
     name: 'ppjab.edit',
     component: EditPpjab,
     meta: {
-      auth: true
+      middleware: [auth, admin]
     }
   },
   {
@@ -128,7 +134,7 @@ const routes = [
     name: 'ppjab.folderDocument',
     component: FolderDocument,
     meta: {
-      auth: true
+      middleware: [auth],
     }
   },
   {
@@ -136,7 +142,7 @@ const routes = [
     name: 'ppjab.document',
     component: ListDocumentPpajb,
     meta: {
-      auth: true
+      middleware: [auth],
     }
   },
   {
@@ -144,7 +150,7 @@ const routes = [
     name: 'ppjab.uploadDocument',
     component: UploadDocumentPpajb,
     meta: {
-      auth: true
+      middleware: [auth, manager]
     }
   },
   {
@@ -152,7 +158,7 @@ const routes = [
     name: 'kontrak',
     component: ListKontrak,
     meta: {
-      auth: true
+      middleware: [auth, manager]
     }
   },
   {
@@ -160,7 +166,7 @@ const routes = [
     name: 'kontrak.create',
     component: CreateKontrak,
     meta: {
-      auth: true
+      middleware: [auth, manager]
     }
   },
   {
@@ -168,7 +174,8 @@ const routes = [
     name: 'kontrak.update',
     component: UpdateKontrak,
     meta: {
-      auth: true
+      auth: true,
+      middleware: [auth, manager]
     }
   },
   {
@@ -176,7 +183,7 @@ const routes = [
     name: 'amandemen',
     component: ListAmandemen,
     meta: {
-      auth: true
+      middleware: [auth, manager]
     }
   },
   {
@@ -184,7 +191,7 @@ const routes = [
     name: 'amandemen.create',
     component: CreateAmandemen,
     meta: {
-      auth: true
+      middleware: [auth, manager]
     }
   },
   {
@@ -192,7 +199,7 @@ const routes = [
     name: 'amandemen.update',
     component: UpdateAmandemen,
     meta: {
-      auth: true
+      middleware: [auth, manager]
     }
   },
 
@@ -204,13 +211,24 @@ const router = new VueRouter({
   routes
 })
 
+function nextFactory(context, middleware, index) {
+  const subsequentMiddleware = middleware[index]
+  if (!subsequentMiddleware) {
+    return context.next
+  }
+  return (...parameters) => {
+    context.next(...parameters)
+    const nextMiddleware = nextFactory(context, middleware, index + 1)
+    subsequentMiddleware({ ...context, next: nextMiddleware })
+  }
+}
+
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.auth)) {
-    if (store.getters['auth/isLoggedIn'] && store.getters['auth/user']) {
-      next()
-      return
-    }
-    next('/')
+  if (to.meta.middleware) {
+    const middleware = Array.isArray(to.meta.middleware) ? to.meta.middleware : [to.meta.middleware]
+    const context = { from, next, router, to }
+    const nextMiddleware = nextFactory(context, middleware, 1)
+    return middleware[0]({...context, next: nextMiddleware})
   }
 
   if (to.matched.some(record => record.meta.guest)) {
@@ -218,8 +236,9 @@ router.beforeEach((to, from, next) => {
       next()
       return
     }
-    next('dashboard')
+    next('/dashboard')
   }
-  next()
+  
+  return next()
 })
 export default router

@@ -1,10 +1,12 @@
 <template>
     <div>
-        <router-link :to="{ name: 'subProject.createSubProject', params: { projectID: project_id } }">
-            <div class="mb-3">
-                <button class="btn btn-primary">Buat Sub Project</button>
-            </div>
-        </router-link>
+        <template v-if="user.user_level_id == 100">
+            <router-link :to="{ name: 'subProject.createSubProject', params: { projectID: project_id } }">
+                <div class="mb-3">
+                    <button class="btn btn-primary">Buat Sub Project</button>
+                </div>
+            </router-link>
+        </template>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -17,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="subProject in subProjects" :key="subProject.id">
+                <tr v-for="subProject in subProjects" :key="subProject.id" :class="{ 'bg-light' :user.id !== subProject.user_id  }">
                     <th class="text-truncate">{{ subProject.name }}</th>
                     <th class="text-truncate">{{ subProject.keterangan }}</th>
                     <th class="text-truncate">
@@ -26,31 +28,33 @@
                     </th>
                     <th class="text-truncate">{{ subProject.user.name }}</th>
                     <th class="text-truncate">{{ subProject.created_at }}</th>
-                    <th class="text-truncate">
+                    <th class="text-truncate" >
                         <div class="d-flex">
-                            <div class="text-info">
+                            <div v-if="user.user_level_id == 100" class="text-info">
                                 <router-link :to="{ name: 'subProject.EditSubProject', params: { projectID: project_id, subProjectID: subProject.id } }">
                                     <i class="mdi mdi-pencil"><span>Edit</span></i>
                                 </router-link>
                             </div>
                             <div class="text-info">
-                                <router-link :to="{ name: 'subProject.UploadFileSubProject', params: { projectID: project_id, subProjectID: subProject.id } }">
-                                        <i class="mdi mdi-file-upload">
-                                            <template v-if="subProject.file !== ''">
-                                                <span>Update File</span>
-                                            </template>
-                                            <template v-else>
-                                                <span>Upload File</span>
-                                            </template>
-                                        </i>
-                                </router-link>
+                                <template v-if="user.id == subProject.user_id">
+                                    <router-link :to="{ name: 'subProject.UploadFileSubProject', params: { projectID: project_id, subProjectID: subProject.id } }">
+                                            <i class="mdi mdi-file-upload">
+                                                <template v-if="subProject.file !== ''">
+                                                    <span>Update File</span>
+                                                </template>
+                                                <template v-else>
+                                                    <span>Upload File</span>
+                                                </template>
+                                            </i>
+                                    </router-link>
+                                </template>
                             </div>
                             <div class="text-info" v-if="subProject.file">
                                 <a target="_blank" :href="subProject.file" :download="subProject.name">
                                     <i class="mdi mdi-download"><span>Download</span></i>
                                 </a>
                             </div>
-                            <delete-sub-project :projectID="project_id" :subProjectID="subProject.id" />
+                            <delete-sub-project v-if="user.user_level_id == 100" :projectID="project_id" :subProjectID="subProject.id" />
                         </div>
                     </th>
                 </tr>
@@ -61,6 +65,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 import DeleteSubProject from "./DeleteSubProject.vue";
 export default {
     components: {
@@ -72,6 +77,12 @@ export default {
             subProjects: []
         }
     },
+    computed: {
+        ...mapGetters({
+            user: 'auth/user'
+        })
+    },
+
     mounted() {
         this.showAllSubProject()
     },

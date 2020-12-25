@@ -1,17 +1,19 @@
 <template>
 	<div>
-        <router-link :to="{ name: 'project.create' }">
-            <div class="mb-3">
-                <button class="btn btn-primary">Buat Project</button>
-            </div>
-        </router-link>
+        <template v-if="user.user_level_id == 100">
+            <router-link :to="{ name: 'project.create' }">
+                <div class="mb-3">
+                    <button class="btn btn-primary">Buat Project</button>
+                </div>
+            </router-link>
+        </template>
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th class="text-truncate">Nama Projek</th>
 					<th class="text-truncate">Keterangan</th>
 					<th class="text-truncate">Tanggal dibuat</th>
-					<th class="text-truncate text-center">Action</th>
+					<th v-if="user.user_level_id == 100" class="text-truncate text-center">Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,7 +25,7 @@
                     </td>
 					<td class="text-truncate">{{ project.keterangan }}</td>
 					<td class="text-truncate">{{ project.created_at }}</td>
-                    <td class="text-truncate">
+                    <td v-if="user.user_level_id == 100" class="text-truncate">
                         <div class="d-flex">
                             <div class="text-info">
                                 <router-link :to="{ name: 'project.edit', params: { projectID: project.id } }">
@@ -42,6 +44,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 import DeleteProject from "./DeleteProject";
 export default {
     components: {
@@ -52,6 +55,11 @@ export default {
             projects: [],
         }
     }, 
+    computed: {
+        ...mapGetters({
+            user: 'auth/user'
+        })
+    },
     mounted() {
         this.showAllProject()
     },
