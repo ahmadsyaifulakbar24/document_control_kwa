@@ -17,7 +17,7 @@ class GetProjectController extends Controller
             $user_id = $request->user()->id;
             $project = SubProject::select('a.id', 'a.name', 'a.keterangan', 'a.created_at', 'a.updated_at')->where('user_id', $user_id)
                                 ->leftJoin('projects as a', 'sub_projects.project_id', '=', 'a.id')
-                                ->groupBy('project_id')->get();
+                                ->groupBy('project_id')->paginate(10);
         } else {
             $project = Project::orderBy('id', 'DESC')->paginate(10);
         }
