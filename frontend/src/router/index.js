@@ -28,6 +28,7 @@ import auth from './middleware/auth'
 // import finance from './middleware/finance'
 import financeAndManager from './middleware/financeAndManager'
 import manager from './middleware/manager'
+import managerAndDirecture from './middleware/managerAndDirecture'
 
 Vue.use(VueRouter)
 
@@ -158,7 +159,7 @@ const routes = [
     name: 'kontrak',
     component: ListKontrak,
     meta: {
-      middleware: [auth, manager]
+      middleware: [auth, managerAndDirecture]
     }
   },
   {
@@ -183,7 +184,7 @@ const routes = [
     name: 'amandemen',
     component: ListAmandemen,
     meta: {
-      middleware: [auth, manager]
+      middleware: [auth, managerAndDirecture]
     }
   },
   {

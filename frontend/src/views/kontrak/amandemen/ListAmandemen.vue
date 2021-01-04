@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="mb-3">
+        <div class="mb-3" v-if="user.user_level_id == 102">
             <router-link :to="{ name: 'amandemen.create', params: { kontrakID: kontrakID} }">
                 <button class="btn btn-primary">Upload Amandemen</button>
             </router-link>
@@ -21,10 +21,10 @@
                     <td class="text-truncate">{{ fileName(amandemen.file) }}</td>
                     <td class="text-truncate">
                         <div class="d-flex">
-                            <router-link :to="{ name: 'amandemen.update', params:{ kontrakID: kontrakID, amandemenID: amandemen.id } }">
+                            <router-link :to="{ name: 'amandemen.update', params:{ kontrakID: kontrakID, amandemenID: amandemen.id } }" v-if="user.user_level_id == 102">
                                 <i class="mdi mdi-pencil"><span>Edit</span></i>
                             </router-link>
-                            <delete-amandemen :amandemenID="amandemen.id" />
+                            <delete-amandemen :amandemenID="amandemen.id" v-if="user.user_level_id == 102" />
                             <div class="text-info">
                                 <a target="_blank" :href="amandemen.file" :download="amandemen.name">
                                     <i class="mdi mdi-download"><span>Download</span></i>
@@ -40,6 +40,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 import DeleteAmandemen from './DeleteAmandemen';
 export default {
     components: {
@@ -50,6 +51,11 @@ export default {
             kontrakID: this.$route.params.kontrakID,
             amandemens: []
         }
+    },
+    computed: {
+        ...mapGetters({
+            user: 'auth/user'
+        })
     },
     mounted() {
         this.getAmandems()

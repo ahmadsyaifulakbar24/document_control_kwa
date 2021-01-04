@@ -18,8 +18,8 @@
                 </tbody>
             </table>
         </template>
-            <template v-else>
-                <div class="mb-3">
+        <template v-else>
+            <div class="mb-3" v-if="user.user_level_id == 102">
                 <router-link :to="{ name: 'ppjab.uploadDocument', params: { ppjabID: ppjabID, groupID: groupID} }">
                     <button class="btn btn-primary">Upload Document</button>
                 </router-link>
@@ -42,7 +42,7 @@
                         <td class="text-truncate">{{ document.created_at }}</td>
                         <td class="text-truncate">
                             <div class="d-flex">
-                                <delete-document :documentID="document.id" />
+                                <delete-document :documentID="document.id" v-if="user.user_level_id == 102"/>
                                 <div class="text-info">
                                     <a target="_blank" :href="document.file" :download="document.name">
                                         <i class="mdi mdi-download"> <span>Download File</span> </i>
@@ -59,6 +59,7 @@
 
 <script>
 import axios from 'axios'
+import { mapGetters } from "vuex"
 import DeleteDocument from './DeleteDocument.vue'
 export default {
 	components: { 
@@ -71,6 +72,11 @@ export default {
             ppjabID: this.$route.params.ppjabID,
             groupID: '',
         }
+    },
+    computed: {
+        ...mapGetters({
+            user: 'auth/user'
+        })
     },
     mounted() {
         this.getDocument(this.$route.params.groupID)

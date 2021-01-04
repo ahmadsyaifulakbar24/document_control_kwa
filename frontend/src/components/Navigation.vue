@@ -36,11 +36,11 @@
                 <i class="mdi mdi-apps mdi-18px"></i><span>Project</span>
             </router-link>
 
-            <router-link :to="{ name: 'ppjab' }">
+            <router-link :to="{ name: 'ppjab' }" v-if="user.user_level_id != 103">
                 <i class="mdi mdi-apps mdi-18px"></i><span>PPJAB</span>
             </router-link>
 
-            <template v-if="user.user_level_id == 102">
+            <template v-if="user.user_level_id == 102 || user.user_level_id == 101" >
                 <router-link :to="{ name: 'kontrak' }">
                     <i class="mdi mdi-apps mdi-18px"></i><span>Kontrak</span>
                 </router-link>
