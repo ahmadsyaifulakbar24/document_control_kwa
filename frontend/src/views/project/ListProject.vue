@@ -2,11 +2,13 @@
 	<div>
         <template v-if="user.user_level_id == 100">
             <router-link :to="{ name: 'project.create' }">
-                <div class="mb-3">
-                    <button class="btn btn-primary">Buat Project</button>
-                </div>
+                <button class="btn btn-primary mb-3">Buat Project</button>
             </router-link>
         </template>
+        <div v-if="pagination.last_page > 1" class="float-right row">
+            <div class="mr-3"> Data ke {{ projects.meta.from }} - {{ projects.meta.to }} dari {{ projects.meta.total }} data </div>
+            <Pagination :last_page="pagination.last_page" :pagination="pagination" @paginate="showAllProject()"/>
+        </div>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -46,13 +48,23 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import DeleteProject from "./DeleteProject";
+import Pagination from '@/components/Pagination.vue'
+
 export default {
     components: {
-        DeleteProject
+        DeleteProject,
+        Pagination
     },
     data() {
         return {
-            projects: [],
+            projects: {
+                data:[],
+                meta:{},
+            },
+            pagination: {
+                last_page: '',
+                current_page: 1
+            }
         }
     }, 
     computed: {
@@ -66,9 +78,11 @@ export default {
 
     methods: {
         async showAllProject() {
-            await axios.get('document_flow/project/get')
+            await axios.get(`document_flow/project/get?page=${this.pagination.current_page}`)
             .then((response) => {
-                this.projects = response.data
+                this.projects.data = response.data.data
+                this.projects.meta = response.data.meta
+                this.pagination.last_page = response.data.meta.last_page
             }).catch((error) => {
                 console.log(error)
             })

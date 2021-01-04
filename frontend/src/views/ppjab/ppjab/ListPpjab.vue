@@ -1,9 +1,13 @@
 <template>
     <div>
-        <div v-if="user.user_level_id == 100" class="mb-3">
+        <template v-if="user.user_level_id == 100" class="mb-3">
             <router-link :to="{ name: 'ppjab.create' }">
                 <button class="btn btn-primary"> Tambah PPJAB </button>
             </router-link>
+        </template>
+        <div v-if="pagination.last_page > 1" class="float-right row mb-3">
+            <div class="mr-3"> Data ke {{ ppjabs.meta.from }} - {{ ppjabs.meta.to }} dari {{ ppjabs.meta.total }} data </div>
+            <Pagination :last_page="pagination.last_page" :pagination="pagination" @paginate="getPpjab()"/>
         </div>
         <table class="table table-hover">
             <thead>
@@ -15,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="ppjab in ppjabs" :key="ppjab.id">
+                <tr v-for="ppjab in ppjabs.data" :key="ppjab.id">
                     <th class="text-truncate">
                         <router-link :to="{ name: 'ppjab.folderDocument', params: { ppjabID:ppjab.id }}">
                             {{ ppjab.name }}
@@ -43,13 +47,22 @@
 import axios from "axios";
 import { mapGetters } from "vuex";
 import DeletePpjab from "./DeletePpjab.vue";
+import Pagination from '@/components/Pagination.vue'
 export default {
     components: {
-        DeletePpjab
+        DeletePpjab,
+        Pagination
     },
     data() {
         return {
-            ppjabs: []
+            ppjabs: {
+                data: [],
+                meta: {},
+            },
+            pagination: {
+                last_page: '',
+                current_page: 1
+            }
         }
     },
     computed: {
@@ -62,9 +75,11 @@ export default {
     }, 
     methods: {
         async getPpjab() {
-            await axios.get('ppjab/get')
+            await axios.get(`ppjab/get?page=${this.pagination.current_page}`)
             .then((response) => {
-                this.ppjabs = response.data.data
+                this.ppjabs.data = response.data.data
+                this.ppjabs.meta = response.data.meta
+                this.pagination.last_page = response.data.meta.last_page
             })
         }
     }
