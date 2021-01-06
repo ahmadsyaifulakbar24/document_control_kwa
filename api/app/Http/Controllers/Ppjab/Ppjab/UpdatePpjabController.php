@@ -13,6 +13,9 @@ class UpdatePpjabController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'string'],
+            'provinsi_id' =>  ['required', 'exists:provinsi,id'],
+            'kab_kota_id' =>  ['required', 'exists:kab_kota,id'],
+            'kecamatan' => ['required', 'string'],
             'keterangan' => ['required', 'string']
         ]);
 

@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             ParamsTableSeeder::class,
             UserLevelsTableSeeder::class,
             UsersTableSeeder::class,
+            ProvinsiTableSeeder::class,
+            KabKotaTableSeeder::class,
         ]);
     }
 }
