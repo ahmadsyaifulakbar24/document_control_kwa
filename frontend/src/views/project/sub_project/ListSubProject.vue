@@ -3,7 +3,7 @@
         <template v-if="user.user_level_id == 100">
             <router-link :to="{ name: 'subProject.createSubProject', params: { projectID: project_id } }">
                 <div class="mb-3">
-                    <button class="btn btn-primary">Buat Sub Project</button>
+                    <button class="btn btn-primary">Buat Dokumen</button>
                 </div>
             </router-link>
         </template>

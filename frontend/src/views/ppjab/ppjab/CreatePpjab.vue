@@ -18,7 +18,13 @@ export default {
     },
     data() {
         return {
-            formPpjab: {},
+            formPpjab: {
+                'name': '',
+                'provinsi_id': '',
+                'kab_kota_id': '',
+                'kecamatan': '',
+                'keterangan': '',
+            },
             errors: []
         }
     },

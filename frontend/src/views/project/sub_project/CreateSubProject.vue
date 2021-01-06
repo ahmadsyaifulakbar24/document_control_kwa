@@ -6,9 +6,9 @@
 
         <form @submit.prevent="createSubProject">
             <div class="form-group row">
-                <label for="name" class="col-lg-3">Nama</label>
+                <label for="name" class="col-lg-3">Nama Dokumen</label>
                 <div class="col-lg-5 col-xl-5">
-                    <input type="text" class="form-control" v-model="form.name" id="name" placeholder="Nama">
+                    <input type="text" class="form-control" v-model="form.name" id="name" placeholder="Nama Dokumen">
                     <div v-if="errors.name" class="text-danger mt-2">{{ errors.name[0] }}</div>
                 </div>
             </div>
@@ -76,7 +76,7 @@ export default {
             })
         },
         async getUserProject() {
-            await axios.get('user/get_user_project/')
+            await axios.get('user/get_user_project')
             .then((response) => {
                 this.userProjects = response.data.data
             })

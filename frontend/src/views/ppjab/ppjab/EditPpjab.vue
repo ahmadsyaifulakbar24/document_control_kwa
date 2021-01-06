@@ -4,7 +4,7 @@
             <h4>Edit PPJAB</h4>
         </div>
         <form id="editPpjab" @submit.prevent="editPpjab">
-            <form-ppjab  :formPpjab="formPpjab" :errors="errors" :btn="'Simpan PPJAB'"/>
+            <form-ppjab  :formPpjab="formPpjab" :errors="errors" :btn="'Simpan PPJAB'" />
         </form>
     </div>
 </template>
@@ -18,7 +18,13 @@ export default {
     },
     data() {
         return {
-            formPpjab: [],
+            formPpjab: {
+                name: '',
+                provinsi_id: '',
+                kab_kota_id: '',
+                kecamatan: '',
+                keterangan: '',
+            },
             errors: [],
             ppjabID: this.$route.params.ppjabID
         }
@@ -31,6 +37,8 @@ export default {
             await axios.get(`ppjab/get/${this.ppjabID}`)
             .then((response) => {
                 this.formPpjab = response.data.data
+                this.formPpjab.provinsi_id = this.formPpjab.provinsi.id
+                this.formPpjab.kab_kota_id = this.formPpjab.kab_kota.id
             })
         },
 

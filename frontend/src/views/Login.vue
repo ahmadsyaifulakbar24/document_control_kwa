@@ -2,8 +2,7 @@
     <div class="auth">
 		<div class="card rounded">
 			<div class="card-head text-center px-4 pt-4">
-				<!-- <img src="{{asset('assets/images/eoffice.png')}}" width="120"> -->
-				<h2 class="pt-4">Inventory KWA</h2>
+				<h2 class="pt-4">Dokumen Kontrol KWA</h2>
 				<p class="text-secondary">PT. Karl Wig Abadi</p>
 			</div>
 			<div class="card-body">
