@@ -37,6 +37,7 @@ const routes = [
     component: Login,
     meta: {
       guest: true,
+      title: 'Login'
     }
   },
   {
@@ -45,6 +46,7 @@ const routes = [
     component: Dashboard,
     meta: {
       middleware: [auth],
+      title: 'Dashboard'
     }
   },
 
@@ -54,6 +56,7 @@ const routes = [
     component: ListProject,
     meta: {
       middleware: [auth],
+      title: 'Project'
     }
   },
   {
@@ -61,7 +64,8 @@ const routes = [
     name: 'project.create',
     component: CreateProject,
     meta: {
-      middleware: [auth, admin]
+      middleware: [auth, admin],
+      title: 'Create Project'
     }
   },
   {
@@ -69,7 +73,8 @@ const routes = [
     name: 'project.edit',
     component: EditProject,
     meta: {
-      middleware: [auth, admin]
+      middleware: [auth, admin],
+      title: 'Edit Project'
     }
   },
   {
@@ -78,6 +83,7 @@ const routes = [
     component: ListSubProject,
     meta: {
       middleware: [auth],
+      title: 'Dokumen Project'
     }
   },
   {
@@ -85,7 +91,8 @@ const routes = [
     name: 'subProject.createSubProject',
     component: CreateSubProject,
     meta: {
-      middleware: [auth, admin]
+      middleware: [auth, admin],
+      title: 'Create Project'
     }
   },
   {
@@ -93,7 +100,8 @@ const routes = [
     name: 'subProject.EditSubProject',
     component: EditSubProject,
     meta: {
-      middleware: [auth, admin]
+      middleware: [auth, admin],
+      title: 'Edit Dokumen Project'
     }
   },
   {
@@ -101,7 +109,8 @@ const routes = [
     name: 'subProject.UploadFileSubProject',
     component: UploadFileSubProject,
     meta: {
-      middleware: [auth, financeAndManager]
+      middleware: [auth, financeAndManager],
+      title: 'Upload Dokumen Project'
     }
   },
   {
@@ -110,6 +119,7 @@ const routes = [
     component: Ppjab,
     meta: {
       middleware: [auth],
+      title: 'PPJAB'
     }
   },
   {
@@ -117,7 +127,8 @@ const routes = [
     name: 'ppjab.create',
     component: CreatePpjab,
     meta: {
-      middleware: [auth, admin]
+      middleware: [auth, admin],
+      title: 'Create PPJAB'
     }
   },
   {
@@ -125,7 +136,8 @@ const routes = [
     name: 'ppjab.edit',
     component: EditPpjab,
     meta: {
-      middleware: [auth, admin]
+      middleware: [auth, admin],
+      title: 'Edit PPJAB'
     }
   },
   {
@@ -134,6 +146,7 @@ const routes = [
     component: FolderDocument,
     meta: {
       middleware: [auth],
+      title: 'PPJAB Folder'
     }
   },
   {
@@ -142,6 +155,7 @@ const routes = [
     component: ListDocumentPpajb,
     meta: {
       middleware: [auth],
+      title: 'PPJAB Document'
     }
   },
   {
@@ -149,7 +163,8 @@ const routes = [
     name: 'ppjab.uploadDocument',
     component: UploadDocumentPpajb,
     meta: {
-      middleware: [auth, manager]
+      middleware: [auth, manager],
+      title: 'Upload Documen PPJAB'
     }
   },
   {
@@ -157,7 +172,8 @@ const routes = [
     name: 'kontrak',
     component: ListKontrak,
     meta: {
-      middleware: [auth, managerAndDirecture]
+      middleware: [auth, managerAndDirecture],
+      title: 'Kontrak'
     }
   },
   {
@@ -165,7 +181,8 @@ const routes = [
     name: 'kontrak.create',
     component: CreateKontrak,
     meta: {
-      middleware: [auth, manager]
+      middleware: [auth, manager],
+      title: 'Create Kontrak'
     }
   },
   {
@@ -174,7 +191,8 @@ const routes = [
     component: UpdateKontrak,
     meta: {
       auth: true,
-      middleware: [auth, manager]
+      middleware: [auth, manager],
+      title: 'Edit Kontrak'
     }
   },
   {
@@ -182,7 +200,8 @@ const routes = [
     name: 'amandemen',
     component: ListAmandemen,
     meta: {
-      middleware: [auth, managerAndDirecture]
+      middleware: [auth, managerAndDirecture],
+      title: 'amandemen'
     }
   },
   {
@@ -190,7 +209,8 @@ const routes = [
     name: 'amandemen.create',
     component: CreateAmandemen,
     meta: {
-      middleware: [auth, manager]
+      middleware: [auth, manager],
+      title: 'Create Amandemen'
     }
   },
   {
@@ -198,7 +218,8 @@ const routes = [
     name: 'amandemen.update',
     component: UpdateAmandemen,
     meta: {
-      middleware: [auth, manager]
+      middleware: [auth, manager],
+      title: 'Edit Amandemen'
     }
   },
 
@@ -206,6 +227,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
+  linkActiveClass: 'active',
   base: process.env.BASE_URL,
   routes
 })
@@ -222,7 +244,12 @@ function nextFactory(context, middleware, index) {
   }
 }
 
+const DEFAULT_TITLE = 'Dokumen Kontrol';
 router.beforeEach((to, from, next) => {
+  Vue.nextTick(() => {
+    document.title = to.meta.title != '' ? to.meta.title+' - '+DEFAULT_TITLE : DEFAULT_TITLE
+  })
+  
   if (to.meta.middleware) {
     const middleware = Array.isArray(to.meta.middleware) ? to.meta.middleware : [to.meta.middleware]
     const context = { from, next, router, to }
