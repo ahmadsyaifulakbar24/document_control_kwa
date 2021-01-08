@@ -45,7 +45,7 @@
                                 <delete-document :documentID="document.id" v-if="user.user_level_id == 102"/>
                                 <div class="text-info">
                                     <a target="_blank" :href="document.file" :download="document.name">
-                                        <i class="mdi mdi-download"> <span>Download File</span> </i>
+                                        <i class="mdi mdi-download pr-0"></i><span>Download File</span>
                                     </a>
                                 </div>
                             </div>

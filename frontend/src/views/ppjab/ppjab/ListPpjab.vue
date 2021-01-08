@@ -1,8 +1,8 @@
 <template>
     <div>
-        <template v-if="user.user_level_id == 100" class="mb-3">
+        <template v-if="user.user_level_id == 100">
             <router-link :to="{ name: 'ppjab.create' }">
-                <button class="btn btn-primary"> Tambah PPJAB </button>
+                <button class="btn btn-primary mb-3"> Tambah PPJAB </button>
             </router-link>
         </template>
         <div v-if="pagination.last_page > 1" class="float-right row mb-3">
@@ -29,9 +29,9 @@
                     <th class="text-truncate">{{ ppjab.created_at }}</th>
                     <th v-if="user.user_level_id == 100" class="text-truncate">
                         <div class="d-flex">
-                            <div class="text-info">
+                            <div class="text-info pr-1">
                                 <router-link :to="{ name: 'ppjab.edit', params: { ppjabID: ppjab.id } }">
-                                    <i class="mdi mdi-pencil"><span>Edit</span></i>
+                                    <i class="mdi mdi-pencil pr-0"></i><span>Edit</span>
                                 </router-link>
                             </div>
                             <delete-ppjab :ppjabID="ppjab.id" />

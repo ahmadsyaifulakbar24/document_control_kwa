@@ -1,7 +1,7 @@
 <template>
     <div>
         <div ref="deletePpjab" id="delete-ppjab" class="text-danger" @click="modalDelete = true">
-            <i class="mdi mdi-delete"><span>delete</span></i>
+            <i class="pr-0 mdi mdi-delete"></i><span>Delete</span>
         </div>
         
         <modal v-if="modalDelete" @close="modalDelete = false">
