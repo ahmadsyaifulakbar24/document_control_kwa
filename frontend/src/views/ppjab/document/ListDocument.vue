@@ -24,8 +24,11 @@
                     <button class="btn btn-primary">Upload Document</button>
                 </router-link>
             </div>
+            <div v-if="loading" class="d-flex justify-content-center">
+                Loading...
+            </div>
             <table class="table table-hover">
-                <thead>
+                <thead v-if="!loading">
                     <tr>
                         <th class="text-truncate">Document Name</th>
                         <th class="text-truncate">Keterangan</th>
@@ -71,6 +74,7 @@ export default {
             subFolders: [],
             ppjabID: this.$route.params.ppjabID,
             groupID: '',
+            loading: false
         }
     },
     computed: {
@@ -96,9 +100,13 @@ export default {
             })
         },
         async getDocument(groupID) {
+            this.loading = true
             await axios.get(`ppjab/document_ppjab/get_by_group/${this.ppjabID}/${groupID}`)
             .then((response) => {
                 this.documents = response.data.data
+                this.loading = false
+            }).catch(() => {
+                this.loading = true
             })
         },
         fileName(fileURL) {

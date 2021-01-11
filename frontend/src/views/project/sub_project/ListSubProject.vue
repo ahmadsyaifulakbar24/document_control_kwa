@@ -7,8 +7,11 @@
                 </div>
             </router-link>
         </template>
+        <div v-if="loading" class="d-flex justify-content-center">
+            Loading...
+        </div>
         <table class="table table-hover">
-            <thead>
+            <thead v-if="!loading">
                 <tr>
                     <th class="text-truncate">Name</th>
                     <th class="text-truncate">Keterangan</th>
@@ -74,7 +77,8 @@ export default {
     data() {
         return {
             project_id: this.$route.params.projectID,
-            subProjects: []
+            subProjects: [],
+            loading: false
         }
     },
     computed: {
@@ -88,11 +92,14 @@ export default {
     },
     methods: {
         async showAllSubProject() {
+            this.loading = true
             await axios.get(`document_flow/sub_project/get_by_project/${this.project_id}`)
             .then((response) => {
                 this.subProjects = response.data.data
+                this.loading = false
             }).catch((error) => {
                 console.log(error.response.data)
+                this.loading = true
             })
         },
         fileName(fileURL) {

@@ -9,8 +9,11 @@
             <div class="mr-3"> Data ke {{ projects.meta.from }} - {{ projects.meta.to }} dari {{ projects.meta.total }} data </div>
             <Pagination :last_page="pagination.last_page" :pagination="pagination" @paginate="showAllProject()"/>
         </div>
+        <div v-if="loading" class="d-flex justify-content-center">
+            Loading...
+        </div>
 		<table class="table table-hover">
-			<thead>
+			<thead v-if="!loading">
 				<tr>
 					<th class="text-truncate">Nama Projek</th>
 					<th class="text-truncate">Keterangan</th>
@@ -64,7 +67,8 @@ export default {
             pagination: {
                 last_page: '',
                 current_page: 1
-            }
+            },
+            loading: false,
         }
     }, 
     computed: {
@@ -78,14 +82,17 @@ export default {
 
     methods: {
         async showAllProject() {
-            await axios.get(`document_flow/project/get?page=${this.pagination.current_page}`)
-            .then((response) => {
-                this.projects.data = response.data.data
-                this.projects.meta = response.data.meta
-                this.pagination.last_page = response.data.meta.last_page
-            }).catch((error) => {
-                console.log(error)
-            })
+            this.loading = true
+                await axios.get(`document_flow/project/get?page=${this.pagination.current_page}`)
+                .then((response) => {
+                    this.projects.data = response.data.data
+                    this.projects.meta = response.data.meta
+                    this.pagination.last_page = response.data.meta.last_page
+                    this.loading = false;
+                }).catch((error) => {
+                    console.log(error)
+                    this.loading = true
+                })
         }
     }
 };

@@ -9,8 +9,11 @@
             <div class="mr-3"> Data ke {{ ppjabs.meta.from }} - {{ ppjabs.meta.to }} dari {{ ppjabs.meta.total }} data </div>
             <Pagination :last_page="pagination.last_page" :pagination="pagination" @paginate="getPpjab()"/>
         </div>
+        <div v-if="loading" class="d-flex justify-content-center">
+            Loading...
+        </div>
         <table class="table table-hover">
-            <thead>
+            <thead v-if="!loading">
                 <tr>
                     <th class="text-truncate">Nama PPJAB</th>
                     <th class="text-truncate">Keterangan</th>
@@ -62,7 +65,8 @@ export default {
             pagination: {
                 last_page: '',
                 current_page: 1
-            }
+            },
+            loading: false
         }
     },
     computed: {
@@ -75,11 +79,15 @@ export default {
     }, 
     methods: {
         async getPpjab() {
+            this.loading = true
             await axios.get(`ppjab/get?page=${this.pagination.current_page}`)
             .then((response) => {
                 this.ppjabs.data = response.data.data
                 this.ppjabs.meta = response.data.meta
                 this.pagination.last_page = response.data.meta.last_page
+                this.loading = false
+            }).catch(() => {
+                this.loading = true
             })
         }
     }

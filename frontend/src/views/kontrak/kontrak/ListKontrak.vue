@@ -9,8 +9,11 @@
             <div class="mr-3"> Data ke {{ kontraks.meta.from }} - {{ kontraks.meta.to }} dari {{ kontraks.meta.total }} data </div>
             <Pagination :last_page="pagination.last_page" :pagination="pagination" @paginate="getKontraks()"/>
         </div>
+        <div v-if="loading" class="d-flex justify-content-center">
+            Loading...
+        </div>
         <table class="table table-hover">
-            <thead>
+            <thead v-if="!loading">
                 <tr>
                     <th class="text-truncate">Nama</th>
                     <th class="text-truncate">Keterangan</th>
@@ -71,7 +74,8 @@ export default {
             pagination: {
                 last_page: '',
                 current_page: 1
-            }
+            },
+            loading: false
         }
     },
     computed: {
@@ -84,11 +88,15 @@ export default {
     },
     methods: {
         async getKontraks() {
+            this.loading = true
             await axios.get(`kontrak/get?page=${this.pagination.current_page}`)
             .then((response) => {
                 this.kontraks.data = response.data.data
                 this.kontraks.meta = response.data.meta
                 this.pagination.last_page = response.data.meta.last_page
+                this.loading = false
+            }).catch(() => {
+                this.loading = true
             })
         },
         fileName(fileURL) {

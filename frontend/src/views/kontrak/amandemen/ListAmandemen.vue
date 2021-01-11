@@ -5,8 +5,11 @@
                 <button class="btn btn-primary">Upload Amandemen</button>
             </router-link>
         </div>
+        <div v-if="loading" class="d-flex justify-content-center">
+            Loading...
+        </div>
         <table class="table table-hover">
-            <thead>
+            <thead v-if="!loading">
                 <tr>
                     <th class="text-truncate">Nama</th>
                     <th class="text-truncate">Keterangan</th>
@@ -49,7 +52,8 @@ export default {
     data() {
         return {
             kontrakID: this.$route.params.kontrakID,
-            amandemens: []
+            amandemens: [],
+            loading: false
         }
     },
     computed: {
@@ -62,9 +66,13 @@ export default {
     },
     methods: {
         async getAmandems() {
+            this.loading = true
             await axios.get(`kontrak/amandemen/get/${this.kontrakID}`)
             .then((response) => {
                 this.amandemens = response.data.data
+                this.loading = false
+            }).catch(() => {
+                this.loading = true
             })
         },
         fileName(fileURL) {
