@@ -29,9 +29,9 @@
 					<td class="text-truncate">{{ project.created_at }}</td>
                     <td v-if="user.user_level_id == 100" class="text-truncate">
                         <div class="d-flex">
-                            <div class="text-info">
+                            <div class="text-info pr-1">
                                 <router-link :to="{ name: 'project.edit', params: { projectID: project.id } }">
-                                    <i class="mdi mdi-pencil"><span>Edit</span></i>
+                                    <i class="mdi mdi-pencil pr-0"></i><span>Edit</span>
                                 </router-link>
                             </div>
                             <delete-project :projectID="project.id"/>

@@ -30,9 +30,9 @@
                     <th class="text-truncate">{{ subProject.created_at }}</th>
                     <th class="text-truncate" >
                         <div class="d-flex">
-                            <div v-if="user.user_level_id == 100" class="text-info">
+                            <div v-if="user.user_level_id == 100" class="text-info mr-1">
                                 <router-link :to="{ name: 'subProject.EditSubProject', params: { projectID: project_id, subProjectID: subProject.id } }">
-                                    <i class="mdi mdi-pencil"><span>Edit</span></i>
+                                    <i class="mdi mdi-pencil pr-0"></i><span>Edit</span>
                                 </router-link>
                             </div>
                             <div class="text-info">
@@ -51,7 +51,7 @@
                             </div>
                             <div class="text-info" v-if="subProject.file">
                                 <a target="_blank" :href="subProject.file" :download="subProject.name">
-                                    <i class="mdi mdi-download"><span>Download</span></i>
+                                    <i class="mdi mdi-download"></i><span>Download</span>
                                 </a>
                             </div>
                             <delete-sub-project v-if="user.user_level_id == 100" :projectID="project_id" :subProjectID="subProject.id" />

@@ -22,12 +22,12 @@
                     <td class="text-truncate">
                         <div class="d-flex">
                             <router-link :to="{ name: 'amandemen.update', params:{ kontrakID: kontrakID, amandemenID: amandemen.id } }" v-if="user.user_level_id == 102">
-                                <i class="mdi mdi-pencil"><span>Edit</span></i>
+                                <i class="mdi mdi-pencil pr-0"></i><span class="mr-1">Edit</span>
                             </router-link>
                             <delete-amandemen :amandemenID="amandemen.id" v-if="user.user_level_id == 102" />
                             <div class="text-info">
                                 <a target="_blank" :href="amandemen.file" :download="amandemen.name">
-                                    <i class="mdi mdi-download"><span>Download</span></i>
+                                    <i class="mdi mdi-download pr-0"></i><span>Download</span>
                                 </a>
                             </div>
                         </div>

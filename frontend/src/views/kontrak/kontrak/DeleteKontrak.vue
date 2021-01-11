@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div ref="deleteKontrak" id="delete-kontrak" class="text-danger" @click="modalDelete = true">
-            <i class="mdi mdi-delete"><span>delete</span></i>
+        <div ref="deleteKontrak" id="delete-kontrak" class="text-danger mr-1" @click="modalDelete = true">
+            <i class="mdi mdi-delete pr-0"></i><span>Delete</span>
         </div>
         
         <modal v-if="modalDelete" @close="modalDelete = false">
